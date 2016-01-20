@@ -22,75 +22,89 @@ private:
 
 InitError::InitError() :
     exception(), msg(SDL_GetError()) {}
-InitError::InitError(const std::string &m) :
-    exception(), msg(m) {}
-InitError::~InitError() throw() {}
-const char *InitError::what() const throw() {
-    return msg.c_str();
-}
+    InitError::InitError(const std::string &m) :
+        exception(), msg(m) {}
+        InitError::~InitError() throw() {}
+        const char *InitError::what() const throw() {
+            return msg.c_str();
+        }
 
-class SDL {
-public:
-    SDL(Uint32 flags = 0) throw(InitError);
-    virtual ~SDL();
-};
+        class SDL {
+        public:
+            SDL(Uint32 flags = 0) throw(InitError);
+            virtual ~SDL();
+        };
 
-SDL::SDL(Uint32 flags) throw(InitError) {
-    if (SDL_Init(flags) != 0)
-        throw InitError();
-}
+        SDL::SDL(Uint32 flags) throw(InitError) {
+            if (SDL_Init(flags) != 0)
+            throw InitError();
+        }
 
-SDL::~SDL() {
-    SDL_Quit();
-}
+        SDL::~SDL() {
+            SDL_Quit();
+        }
 
-int main(int argc, char **argv)
-{
-    bool quit_flag = false;
+        int main(int argc, char **argv)
+        {
+            bool quit_flag = false;
 
-    try {
-        SDL sdl(SDL_INIT_VIDEO|SDL_INIT_TIMER);
-        return 0;
-    }catch(const InitError &err) {
-        std::cerr << "Error while initializing SDL: "
-                  << err.what() << std::endl;
-    }
+            try {
 
-    SDL_Window *window = nullptr;
+                SDL sdl(SDL_INIT_VIDEO|SDL_INIT_TIMER);
 
-    window = SDL_CreateWindow("RPG",WINDOW_POS_X,
-            WINDOW_POS_Y,
-            WINDOW_WIDTH_PX,
-            WINDOW_HEIGHT_PX,
-            SDL_WINDOW_SHOWN|SDL_WINDOW_RESIZABLE);
-    if (window == nullptr) {
-        std::cerr << "Could not create window: " << SDL_GetError();
-        return 1;
-    }
+                SDL_Window *window = nullptr;
 
-    SDL_Renderer *renderer = nullptr;
-    renderer = SDL_CreateRenderer(window, -1, SDL_RENDERER_ACCELERATED);
+                window = SDL_CreateWindow("RPG",WINDOW_POS_X,
+                WINDOW_POS_Y,
+                WINDOW_WIDTH_PX,
+                WINDOW_HEIGHT_PX,
+                SDL_WINDOW_SHOWN|SDL_WINDOW_RESIZABLE);
+                if (window == nullptr) {
+                    std::cerr << "Could not create window: " << SDL_GetError();
+                    return 1;
+                }
 
-    SDL_Event* main_event = new SDL_Event();
-    SDL_Texture* grass_image = nullptr;
-    grass_image = IMG_LoadTexture(renderer, "images/grass.bmp");
+                SDL_Renderer *renderer = nullptr;
+                renderer = SDL_CreateRenderer(window, -1, SDL_RENDERER_ACCELERATED);
 
-    SDL_Rect grass_rect;
-    grass_rect.x = 10;
-    grass_rect.y = 50;
-    grass_rect.w = 250;
-    grass_rect.h = 250;
+                SDL_Event* main_event = new SDL_Event();
 
-    while (!quit_flag && main_event-> type != SDL_QUIT) {
+                SDL_Texture* grass_image = nullptr;
+                grass_image = IMG_LoadTexture(renderer, "images/grass.bmp");
 
-        SDL_PollEvent(main_event);
-        SDL_RenderClear(renderer);
-        SDL_RenderCopy(renderer,grass_image,nullptr,&grass_rect);
-        SDL_RenderPresent(renderer);
-    }
+                SDL_Rect grass_rect;
+                grass_rect.x = 0;
+                grass_rect.y = 0;
+                grass_rect.w = WINDOW_WIDTH_PX;
+                grass_rect.h = WINDOW_HEIGHT_PX;
 
-    SDL_DestroyWindow(window);
-    SDL_DestroyRenderer(renderer);
-    delete main_event;
+                SDL_Texture *bob_image = nullptr;
+                bob_image = IMG_LoadTexture(renderer, "images/bob.png");
 
-}
+                SDL_Rect bob_rect;
+                bob_rect.x = 300;
+                bob_rect.y = 250;
+                bob_rect.w = 50;
+                bob_rect.h = 80;
+
+                while (!quit_flag && main_event-> type != SDL_QUIT) {
+
+                    SDL_PollEvent(main_event);
+                    SDL_RenderClear(renderer);
+                    SDL_RenderCopy(renderer,grass_image,nullptr,&grass_rect);
+                    SDL_RenderCopy(renderer,bob_image,nullptr, &bob_rect); // to be front on the grass
+                    SDL_RenderPresent(renderer);
+                }
+
+                SDL_DestroyWindow(window);
+                SDL_DestroyRenderer(renderer);
+                delete main_event;
+
+            } catch(const InitError &err) {
+                std::cerr << "Error while initializing SDL: "
+                << err.what() << std::endl;
+            }
+
+            return 1;
+
+        }

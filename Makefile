@@ -4,7 +4,7 @@
 
 TARGET = sdlgame
 CC = g++
-CFLAGS = -g -std=c++11 `sdl2-config --cflags --libs`
+CFLAGS = -std=c++11 -lSDL2_image `sdl2-config --cflags --libs` 
 
 .PHONY: default all clean
 
@@ -15,12 +15,12 @@ OBJECTS = $(patsubst %.cpp, %.o, $(wildcard *.cpp))
 HEADERS = $(wildcard *.h)
 
 %.o: %.cpp $(HEADERS)
-	$(CC) $(CFLAGS) -c $< -o $@
+	$(CC) $< $(CFLAGS) -c -o $@
 
 .PRECIOUS: $(TARGET) $(OBJECTS)
 
 $(TARGET): $(OBJECTS)
-	$(CC) $(OBJECTS) -Wall $(LIBS) -o $@
+	$(CC) $(OBJECTS) $(CFLAGS) -Wall $(LIBS) -o $@
 
 clean:
 	-rm -f *.o
