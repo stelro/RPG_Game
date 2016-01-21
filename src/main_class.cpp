@@ -85,16 +85,10 @@ void MainClass::GameLoop() {
 
             if (distance != 0) {
 
-                if (main_char->GetX() > follow_point_x) {
+                if (main_char->GetX() != follow_point_x) {
                     main_char->SetX(main_char->GetX() - ((main_char->GetX() - follow_point_x) / distance ) * 1.5f );
                 }
-                if (main_char->GetX() < follow_point_x) {
-                    main_char->SetX(main_char->GetX() - ((main_char->GetX() - follow_point_x) / distance ) * 1.5f);
-                }
-                if (main_char->GetY() > follow_point_y) {
-                    main_char->SetY(main_char->GetY() - ((main_char->GetY() - follow_point_y) / distance ) * 1.5f);
-                }
-                if (main_char->GetY() < follow_point_y) {
+                if (main_char->GetY() != follow_point_y) {
                     main_char->SetY(main_char->GetY() - ((main_char->GetY() - follow_point_y) / distance ) * 1.5f);
                 }
             }
