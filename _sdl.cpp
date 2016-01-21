@@ -34,6 +34,15 @@ SDL_Event *SDL::GetMainEvent() const {
     return main_event;
 }
 
+void SDL::SdlBegin() const {
+    SDL_PollEvent(main_event);
+    SDL_RenderClear(renderer);
+}
+
+void SDL::SdlEnd() const {
+    SDL_RenderPresent(renderer);
+}
+
 SDL::~SDL() {
     SDL_DestroyWindow(window);
     SDL_DestroyRenderer(renderer);

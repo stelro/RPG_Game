@@ -17,7 +17,6 @@ MainClass::MainClass() {
         quit_state = true;
     }
 
-
     background_image = nullptr;
     background_image = IMG_LoadTexture(csdl_setup->GetRenderer(), "images/grass.bmp");
 
@@ -69,11 +68,12 @@ MainClass::MainClass(const bool flag, const char *title, const uint32_t pos_x, c
 void MainClass::GameLoop() {
     while (!quit_state && csdl_setup->GetMainEvent()-> type != SDL_QUIT) {
 
-        SDL_PollEvent(csdl_setup->GetMainEvent());
-        SDL_RenderClear(csdl_setup->GetRenderer());
+        csdl_setup->SdlBegin();
+
         SDL_RenderCopy(csdl_setup->GetRenderer(),background_image,nullptr,&background_rect);
         SDL_RenderCopy(csdl_setup->GetRenderer(),main_char_image,nullptr, &main_char_rect); // to be front on the background
-        SDL_RenderPresent(csdl_setup->GetRenderer());
+
+        csdl_setup->SdlEnd();
     }
 }
 

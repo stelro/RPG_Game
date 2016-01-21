@@ -14,6 +14,8 @@ public:
     virtual ~SDL();
     SDL_Renderer *GetRenderer() const;
     SDL_Event *GetMainEvent() const;
+    void SdlBegin() const;
+    void SdlEnd() const;
 private:
     SDL_Window *window;
     SDL_Renderer *renderer;
