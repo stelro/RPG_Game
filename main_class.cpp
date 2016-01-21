@@ -45,11 +45,40 @@ void MainClass::GameLoop() {
         background_img->Draw();
         main_char->Draw();
 
+        switch (csdl_setup->GetMainEvent()->type) {
+        case SDL_KEYDOWN:
+
+            switch(csdl_setup->GetMainEvent()->key.keysym.sym) {
+
+            case SDLK_a:
+                std::cout << "a key was pressed!" << std::endl;
+                break;
+            case SDLK_s:
+                std::cout << "s key was pressed!" << std::endl;
+                break;
+            case SDLK_w:
+                std::cout << "w key was pressed!" << std::endl;
+                break;
+            case SDLK_d:
+                std::cout << "d key was pressed!" << std::endl;
+                break;
+            default:
+                break;
+            }
+
+            break;
+        default:
+            break;
+        }
+
         csdl_setup->SdlEnd();
     }
 }
 
 MainClass::~MainClass() {
 
+    delete main_char;
+    delete background_img;
+    delete csdl_setup;
 
 }
