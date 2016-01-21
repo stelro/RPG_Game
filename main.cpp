@@ -1,37 +1,23 @@
 #include <iostream>
 #include <string>
-#include "_sdl.h"
+#include "main_class.h"
+
+const uint32_t WINDOW_POS_X{0};
+const uint32_t WINDOW_POS_Y{0};
+const uint32_t WINDOW_WIDTH_PX{1024};
+const uint32_t WINDOW_HEIGHT_PX{768};
 
 
+int main(int argc, char **argv)
+{
 
+    MainClass game_init(false,"RPG",WINDOW_POS_X,
+    WINDOW_POS_Y,
+    WINDOW_WIDTH_PX,
+    WINDOW_HEIGHT_PX);
 
-        int main(int argc, char **argv)
-        {
+    game_init.GameLoop();
 
-            try {
+    return 0;
 
-                SDL sdl(SDL_INIT_VIDEO|SDL_INIT_TIMER);
-
-            
-
-                while (!quit_flag && main_event-> type != SDL_QUIT) {
-
-                    SDL_PollEvent(main_event);
-                    SDL_RenderClear(renderer);
-                    SDL_RenderCopy(renderer,grass_image,nullptr,&grass_rect);
-                    SDL_RenderCopy(renderer,bob_image,nullptr, &bob_rect); // to be front on the grass
-                    SDL_RenderPresent(renderer);
-                }
-
-                SDL_DestroyWindow(window);
-                SDL_DestroyRenderer(renderer);
-                delete main_event;
-
-            } catch(const InitError &err) {
-                std::cerr << "Error while initializing SDL: "
-                << err.what() << std::endl;
-            }
-
-            return 1;
-
-        }
+}
