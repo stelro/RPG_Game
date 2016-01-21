@@ -1,7 +1,7 @@
 #include <iostream>
 #include <string>
-#include <exception>
-#include <SDL.h>
+#include "_sdl.h"
+
 #include <SDL_image.h>
 #include <SDL_mixer.h>
 
@@ -9,40 +9,6 @@
 #define WINDOW_POS_Y 100
 #define WINDOW_WIDTH_PX 1024
 #define WINDOW_HEIGHT_PX 768
-
-class InitError : public std::exception {
-public:
-    InitError();
-    InitError(const std::string&);
-    virtual ~InitError() throw();
-    virtual const char* what() const throw();
-private:
-    std::string msg;
-};
-
-InitError::InitError() :
-    exception(), msg(SDL_GetError()) {}
-    InitError::InitError(const std::string &m) :
-        exception(), msg(m) {}
-        InitError::~InitError() throw() {}
-        const char *InitError::what() const throw() {
-            return msg.c_str();
-        }
-
-        class SDL {
-        public:
-            SDL(Uint32 flags = 0) throw(InitError);
-            virtual ~SDL();
-        };
-
-        SDL::SDL(Uint32 flags) throw(InitError) {
-            if (SDL_Init(flags) != 0)
-            throw InitError();
-        }
-
-        SDL::~SDL() {
-            SDL_Quit();
-        }
 
         int main(int argc, char **argv)
         {
@@ -79,13 +45,13 @@ InitError::InitError() :
                 grass_rect.h = WINDOW_HEIGHT_PX;
 
                 SDL_Texture *bob_image = nullptr;
-                bob_image = IMG_LoadTexture(renderer, "images/bob.png");
+                bob_image = IMG_LoadTexture(renderer, "images/death_scythe.png");
 
                 SDL_Rect bob_rect;
                 bob_rect.x = 300;
                 bob_rect.y = 250;
-                bob_rect.w = 50;
-                bob_rect.h = 80;
+                bob_rect.w = 40;
+                bob_rect.h = 65;
 
                 while (!quit_flag && main_event-> type != SDL_QUIT) {
 
