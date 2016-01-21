@@ -12,6 +12,11 @@ class CSprite {
 public:
     CSprite(SDL_Renderer *passed_renderer, const std::string FilePath, const int x, const int y, const int w, const int h);
     ~CSprite();
+    void SetX(const int X);
+    void SetY(const int Y);
+    void SetPosition(const int X, const int Y);
+    int GetX() const;
+    int GetY() const;
     void Draw();
 private:
     SDL_Texture *texture;

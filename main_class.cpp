@@ -51,16 +51,16 @@ void MainClass::GameLoop() {
             switch(csdl_setup->GetMainEvent()->key.keysym.sym) {
 
             case SDLK_a:
-                std::cout << "a key was pressed!" << std::endl;
+                main_char->SetX(main_char->GetX() - 1);
                 break;
             case SDLK_s:
-                std::cout << "s key was pressed!" << std::endl;
+                main_char->SetY(main_char->GetY() + 1);
                 break;
             case SDLK_w:
-                std::cout << "w key was pressed!" << std::endl;
+                main_char->SetY(main_char->GetY() - 1);
                 break;
             case SDLK_d:
-                std::cout << "d key was pressed!" << std::endl;
+                main_char->SetX(main_char->GetX() + 1);
                 break;
             default:
                 break;
