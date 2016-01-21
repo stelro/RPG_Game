@@ -12,16 +12,19 @@ class CSprite {
 public:
     CSprite(SDL_Renderer *passed_renderer, const std::string FilePath, const int x, const int y, const int w, const int h);
     ~CSprite();
-    void SetX(const int X);
-    void SetY(const int Y);
-    void SetPosition(const int X, const int Y);
-    int GetX() const;
-    int GetY() const;
+    void SetX(const double X);
+    void SetY(const double Y);
+    void SetPosition(const double X, const double Y);
+    double GetX() const;
+    double GetY() const;
     void Draw();
 private:
     SDL_Texture *texture;
     SDL_Rect t_rect;
     SDL_Renderer *renderer;
+
+    double X_pos;
+    double Y_pos;
 };
 
 #endif

@@ -15,31 +15,38 @@ CSprite::CSprite(SDL_Renderer *passed_renderer, const std::string FilePath, cons
     t_rect.w = w;
     t_rect.h = h;
 
+    X_pos = x;
+    Y_pos = y;
+
 }
 
 void CSprite::Draw() {
     SDL_RenderCopy(renderer,texture,nullptr,&t_rect);
 }
 
-void CSprite::SetX(const int X) {
-    t_rect.x = X;
+void CSprite::SetX(const double X) {
+    X_pos = X;
+    t_rect.x = int(X_pos);
 }
 
-void CSprite::SetY(const int Y) {
-    t_rect.y = Y;
+void CSprite::SetY(const double Y) {
+    Y_pos = Y;
+    t_rect.y = int(Y_pos);
 }
 
-void CSprite::SetPosition(const int X, const int Y) {
-    t_rect.x = X;
-    t_rect.y = Y;
+void CSprite::SetPosition(const double X, const double Y) {
+    Y_pos = Y;
+    X_pos = X;
+    t_rect.x = int(X_pos);
+    t_rect.y = int(Y_pos);
 }
 
-int CSprite::GetX() const {
-    return t_rect.x;
+double CSprite::GetX() const {
+    return X_pos;
 }
 
-int CSprite::GetY() const {
-    return t_rect.y;
+double CSprite::GetY() const {
+    return Y_pos;
 }
 
 CSprite::~CSprite() {

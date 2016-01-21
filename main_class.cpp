@@ -35,13 +35,19 @@ MainClass::MainClass(const bool flag, const char *title, const int pos_x, const 
 
     main_char = new CSprite(csdl_setup->GetRenderer(), "images/death_scythe.png", 100, 200, 40, 65);
 
-     MoveRight = false;
-     MoveLeft = false;
-     MoveUp = false;
-     MoveDown = false;
-
      timeCheck = SDL_GetTicks();
+     MouseX = 0;
+     MouseY = 0;
 
+}
+
+double MainClass::GetDistance(int x1, int y1, int x2, int y2) {
+
+    double DifferenceX = x1 - x2;
+    double DifferenceY = y1 - y2;
+    double distance = sqrt((DifferenceX * DifferenceX) + (DifferenceY * DifferenceY));
+
+    return distance;
 }
 
 void MainClass::GameLoop() {
@@ -49,73 +55,33 @@ void MainClass::GameLoop() {
 
         csdl_setup->SdlBegin();
 
+        SDL_GetMouseState(&MouseX,&MouseY);
+
         background_img->Draw();
         main_char->Draw();
 
-        switch (csdl_setup->GetMainEvent()->type) {
-        case SDL_KEYDOWN:
 
-            switch(csdl_setup->GetMainEvent()->key.keysym.sym) {
 
-            case SDLK_a:
-                MoveLeft = true;
-                break;
-            case SDLK_s:
-                MoveDown = true;
-                break;
-            case SDLK_w:
-                MoveUp = true;
-                break;
-            case SDLK_d:
-                MoveRight = true;
-                break;
-            default:
-                break;
-            }
 
-            break;
 
-        case SDL_KEYUP:
-
-            switch(csdl_setup->GetMainEvent()->key.keysym.sym) {
-
-            case SDLK_a:
-                MoveLeft = false;
-                break;
-            case SDLK_s:
-                MoveDown = false;
-                break;
-            case SDLK_w:
-                MoveUp = false;
-                break;
-            case SDLK_d:
-                MoveRight = false;
-                break;
-            default:
-                break;
-            }
-
-            break;
-
-        default:
-            break;
-        }
-
-        
         if (timeCheck+5 < SDL_GetTicks()) {
 
+            double distance = GetDistance(main_char->GetX(),main_char->GetY(),MouseX,MouseY);
 
-            if (MoveRight) {
-                main_char->SetX(main_char->GetX() + 1);
-            }
-            if (MoveLeft) {
-                main_char->SetX(main_char->GetX() - 1);
-            }
-            if (MoveDown) {
-                main_char->SetY(main_char->GetY() + 1);
-            }
-            if (MoveUp) {
-                main_char->SetY(main_char->GetY() - 1);
+            if (distance != 0) {
+
+                if (main_char->GetX() > MouseX) {
+                    main_char->SetX(main_char->GetX() - ((main_char->GetX() - MouseX) / distance ) * 1.5f );
+                }
+                if (main_char->GetX() < MouseX) {
+                    main_char->SetX(main_char->GetX() - ((main_char->GetX() - MouseX) / distance ) * 1.5f);
+                }
+                if (main_char->GetY() > MouseY) {
+                    main_char->SetY(main_char->GetY() - ((main_char->GetY() - MouseY) / distance ) * 1.5f);
+                }
+                if (main_char->GetY() < MouseY) {
+                    main_char->SetY(main_char->GetY() - ((main_char->GetY() - MouseY) / distance ) * 1.5f);
+                }
             }
 
             timeCheck = SDL_GetTicks();
