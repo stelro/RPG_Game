@@ -38,7 +38,7 @@ MainClass::MainClass(const bool flag, const char *title, const int pos_x, const 
     //Set origin , set the half width and height
     //of the main character
     //----------------------------------
-    main_char->SetOrigin(20.0f,33.0f);
+    main_char->SetOrigin(main_char->GetWidth() / 2.0f, main_char->GetHeight() / 2.0f);
 
      timeCheck = SDL_GetTicks();
      MouseX = 0;

@@ -17,6 +17,8 @@ public:
     void SetPosition(const double X, const double Y);
     double GetX() const;
     double GetY() const;
+    void SetWidth(const int w);
+    void SetHeight(const int h);
     int GetWidth() const;
     int GetHeight() const;
     void SetOrigin(const double x, const double y);

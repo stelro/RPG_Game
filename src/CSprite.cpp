@@ -52,12 +52,20 @@ double CSprite::GetY() const {
     return Y_pos;
 }
 
-int CSprite::GetWidth() const {
+void CSprite::SetWidth(const int w) {
+    t_rect.w = w;
+}
 
+void CSprite::SetHeight(const int h) {
+    t_rect.h = h;
+}
+
+int CSprite::GetWidth() const {
+    return t_rect.w;
 }
 
 int CSprite::GetHeight() const {
-    
+    return t_rect.h;
 }
 
 void CSprite::SetOrigin(const double x,const double y) {
