@@ -23,9 +23,13 @@ public:
     int GetHeight() const;
     void SetOrigin(const double x, const double y);
     void Draw();
+    void PlayAnimation(int BeginFrame,int EndFrame, int Row, int Speed);
 private:
     SDL_Texture *texture;
     SDL_Rect t_rect;
+    SDL_Rect crop;
+    int texture_width;
+    int texture_height;
     SDL_Renderer *renderer;
 
     double X_pos;

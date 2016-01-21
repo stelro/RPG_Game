@@ -15,6 +15,13 @@ CSprite::CSprite(SDL_Renderer *passed_renderer, const std::string FilePath, cons
     t_rect.w = w;
     t_rect.h = h;
 
+    SDL_QueryTexture(texture, nullptr, nullptr,&texture_width, &texture_height);
+
+    crop.x = 0;
+    crop.y = 0;
+    crop.w = texture_width;
+    crop.h = texture_height;
+
     X_pos = x;
     Y_pos = y;
 
@@ -23,8 +30,16 @@ CSprite::CSprite(SDL_Renderer *passed_renderer, const std::string FilePath, cons
 
 }
 
+void CSprite::PlayAnimation(int BeginFrame,int EndFrame, int Row, int Speed) {
+
+    crop.x = texture_width / 4;
+    crop.y = Row * (texture_height / 4);
+    crop.w = texture_width / 4;
+    crop.h = texture_height / 4;
+}
+
 void CSprite::Draw() {
-    SDL_RenderCopy(renderer,texture,nullptr,&t_rect);
+    SDL_RenderCopy(renderer,texture,&crop,&t_rect);
 }
 
 void CSprite::SetX(const double X) {

@@ -33,7 +33,7 @@ MainClass::MainClass(const bool flag, const char *title, const int pos_x, const 
 
     background_img = new CSprite(csdl_setup->GetRenderer(), "images/grass.bmp",0,0,1024,768);
 
-    main_char = new CSprite(csdl_setup->GetRenderer(), "images/death_scythe.png", 100, 200, 40, 66);
+    main_char = new CSprite(csdl_setup->GetRenderer(), "images/death_scythe_ani.png", 100, 200, 50, 90);
     //----------------------------------
     //Set origin , set the half width and height
     //of the main character
@@ -65,6 +65,8 @@ void MainClass::GameLoop() {
 
         background_img->Draw();
         main_char->Draw();
+
+        main_char->PlayAnimation(0,0,1,5);
 
         if (csdl_setup->GetMainEvent()->type == SDL_MOUSEBUTTONDOWN ||
         csdl_setup->GetMainEvent()->type == SDL_MOUSEMOTION) {
