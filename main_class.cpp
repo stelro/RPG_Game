@@ -17,26 +17,10 @@ MainClass::MainClass() {
         quit_state = true;
     }
 
-    background_image = nullptr;
-    background_image = IMG_LoadTexture(csdl_setup->GetRenderer(), "images/grass.bmp");
-
-    main_char_image = nullptr;
-    main_char_image = IMG_LoadTexture(csdl_setup->GetRenderer(), "images/death_scythe.png");
-
-    background_rect.x = 0;
-    background_rect.y = 0;
-    background_rect.w = 1024;
-    background_rect.h = 768;
-
-    main_char_rect.x = 300;
-    main_char_rect.y = 250;
-    main_char_rect.w = 40;
-    main_char_rect.h = 65;
-
-
+        background_img = new CSprite(csdl_setup->GetRenderer(), "images/grass.bmp",0,0,1024,768);
 }
 
-MainClass::MainClass(const bool flag, const char *title, const uint32_t pos_x, const uint32_t pos_y, const uint32_t w, const uint32_t h) {
+MainClass::MainClass(const bool flag, const char *title, const int pos_x, const int pos_y, const int w, const int h) {
 
     quit_state = flag;
 
@@ -47,21 +31,9 @@ MainClass::MainClass(const bool flag, const char *title, const uint32_t pos_x, c
         quit_state = true;
     }
 
-    background_image = nullptr;
-    background_image = IMG_LoadTexture(csdl_setup->GetRenderer(), "images/grass.bmp");
+    background_img = new CSprite(csdl_setup->GetRenderer(), "images/grass.bmp",0,0,1024,768);
 
-    main_char_image = nullptr;
-    main_char_image = IMG_LoadTexture(csdl_setup->GetRenderer(), "images/death_scythe.png");
-
-    background_rect.x = pos_x;
-    background_rect.y = pos_y;
-    background_rect.w = w;
-    background_rect.h = h;
-
-    main_char_rect.x = 300;
-    main_char_rect.y = 250;
-    main_char_rect.w = 40;
-    main_char_rect.h = 65;
+    main_char = new CSprite(csdl_setup->GetRenderer(), "images/death_scythe.png", 100, 200, 40, 65);
 
 }
 
@@ -70,15 +42,14 @@ void MainClass::GameLoop() {
 
         csdl_setup->SdlBegin();
 
-        SDL_RenderCopy(csdl_setup->GetRenderer(),background_image,nullptr,&background_rect);
-        SDL_RenderCopy(csdl_setup->GetRenderer(),main_char_image,nullptr, &main_char_rect); // to be front on the background
+        background_img->Draw();
+        main_char->Draw();
 
         csdl_setup->SdlEnd();
     }
 }
 
 MainClass::~MainClass() {
-    SDL_DestroyTexture(background_image);
-    SDL_DestroyTexture(main_char_image);
+
 
 }
