@@ -17,6 +17,12 @@ private:
     SDL_Window *window;
     SDL_Renderer *renderer;
     SDL_Event *main_event;
+
+    SDL_Texture *background_image;
+    SDL_Texture *main_char_image;
+
+    SDL_Rect background_rect;
+    SDL_Rect main_char_rect;
 };
 
 #endif
