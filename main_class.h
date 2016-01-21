@@ -22,6 +22,17 @@ private:
 
     CSprite *background_img;
     CSprite *main_char;
+
+    //-----------------------
+    //Main character movments
+    //-----------------------
+
+    bool MoveRight;
+    bool MoveLeft;
+    bool MoveUp;
+    bool MoveDown;
+
+    size_t timeCheck;
 };
 
 #endif

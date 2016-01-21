@@ -35,6 +35,13 @@ MainClass::MainClass(const bool flag, const char *title, const int pos_x, const 
 
     main_char = new CSprite(csdl_setup->GetRenderer(), "images/death_scythe.png", 100, 200, 40, 65);
 
+     MoveRight = false;
+     MoveLeft = false;
+     MoveUp = false;
+     MoveDown = false;
+
+     timeCheck = SDL_GetTicks();
+
 }
 
 void MainClass::GameLoop() {
@@ -51,24 +58,67 @@ void MainClass::GameLoop() {
             switch(csdl_setup->GetMainEvent()->key.keysym.sym) {
 
             case SDLK_a:
-                main_char->SetX(main_char->GetX() - 1);
+                MoveLeft = true;
                 break;
             case SDLK_s:
-                main_char->SetY(main_char->GetY() + 1);
+                MoveDown = true;
                 break;
             case SDLK_w:
-                main_char->SetY(main_char->GetY() - 1);
+                MoveUp = true;
                 break;
             case SDLK_d:
-                main_char->SetX(main_char->GetX() + 1);
+                MoveRight = true;
                 break;
             default:
                 break;
             }
 
             break;
+
+        case SDL_KEYUP:
+
+            switch(csdl_setup->GetMainEvent()->key.keysym.sym) {
+
+            case SDLK_a:
+                MoveLeft = false;
+                break;
+            case SDLK_s:
+                MoveDown = false;
+                break;
+            case SDLK_w:
+                MoveUp = false;
+                break;
+            case SDLK_d:
+                MoveRight = false;
+                break;
+            default:
+                break;
+            }
+
+            break;
+
         default:
             break;
+        }
+
+        
+        if (timeCheck+5 < SDL_GetTicks()) {
+
+
+            if (MoveRight) {
+                main_char->SetX(main_char->GetX() + 1);
+            }
+            if (MoveLeft) {
+                main_char->SetX(main_char->GetX() - 1);
+            }
+            if (MoveDown) {
+                main_char->SetY(main_char->GetY() + 1);
+            }
+            if (MoveUp) {
+                main_char->SetY(main_char->GetY() - 1);
+            }
+
+            timeCheck = SDL_GetTicks();
         }
 
         csdl_setup->SdlEnd();
