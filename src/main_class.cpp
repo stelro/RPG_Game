@@ -33,11 +33,17 @@ MainClass::MainClass(const bool flag, const char *title, const int pos_x, const 
 
     background_img = new CSprite(csdl_setup->GetRenderer(), "images/grass.bmp",0,0,1024,768);
 
-    main_char = new CSprite(csdl_setup->GetRenderer(), "images/death_scythe.png", 100, 200, 40, 65);
+    main_char = new CSprite(csdl_setup->GetRenderer(), "images/death_scythe.png", 100, 200, 40, 66);
+    //----------------------------------
+    //Set origin , set the half width and height
+    //of the main character
+    //----------------------------------
+    main_char->SetOrigin(20.0f,33.0f);
 
      timeCheck = SDL_GetTicks();
      MouseX = 0;
      MouseY = 0;
+     follow = false;
 
 }
 
@@ -60,29 +66,40 @@ void MainClass::GameLoop() {
         background_img->Draw();
         main_char->Draw();
 
+        if (csdl_setup->GetMainEvent()->type == SDL_MOUSEBUTTONDOWN ||
+        csdl_setup->GetMainEvent()->type == SDL_MOUSEMOTION) {
+
+            if(csdl_setup->GetMainEvent()->button.button == SDL_BUTTON_LEFT) {
+                follow_point_x = MouseX;
+                follow_point_y = MouseY;
+                follow = true;
+            }
+
+        }
 
 
 
+        if (timeCheck+10 < SDL_GetTicks() && follow) {
 
-        if (timeCheck+5 < SDL_GetTicks()) {
-
-            double distance = GetDistance(main_char->GetX(),main_char->GetY(),MouseX,MouseY);
+            double distance = GetDistance(main_char->GetX(),main_char->GetY(),follow_point_x,follow_point_y);
 
             if (distance != 0) {
 
-                if (main_char->GetX() > MouseX) {
-                    main_char->SetX(main_char->GetX() - ((main_char->GetX() - MouseX) / distance ) * 1.5f );
+                if (main_char->GetX() > follow_point_x) {
+                    main_char->SetX(main_char->GetX() - ((main_char->GetX() - follow_point_x) / distance ) * 1.5f );
                 }
-                if (main_char->GetX() < MouseX) {
-                    main_char->SetX(main_char->GetX() - ((main_char->GetX() - MouseX) / distance ) * 1.5f);
+                if (main_char->GetX() < follow_point_x) {
+                    main_char->SetX(main_char->GetX() - ((main_char->GetX() - follow_point_x) / distance ) * 1.5f);
                 }
-                if (main_char->GetY() > MouseY) {
-                    main_char->SetY(main_char->GetY() - ((main_char->GetY() - MouseY) / distance ) * 1.5f);
+                if (main_char->GetY() > follow_point_y) {
+                    main_char->SetY(main_char->GetY() - ((main_char->GetY() - follow_point_y) / distance ) * 1.5f);
                 }
-                if (main_char->GetY() < MouseY) {
-                    main_char->SetY(main_char->GetY() - ((main_char->GetY() - MouseY) / distance ) * 1.5f);
+                if (main_char->GetY() < follow_point_y) {
+                    main_char->SetY(main_char->GetY() - ((main_char->GetY() - follow_point_y) / distance ) * 1.5f);
                 }
             }
+            else
+                follow = false;
 
             timeCheck = SDL_GetTicks();
         }

@@ -18,6 +18,9 @@ CSprite::CSprite(SDL_Renderer *passed_renderer, const std::string FilePath, cons
     X_pos = x;
     Y_pos = y;
 
+    Origin_x = 0;
+    Origin_y = 0;
+
 }
 
 void CSprite::Draw() {
@@ -26,19 +29,19 @@ void CSprite::Draw() {
 
 void CSprite::SetX(const double X) {
     X_pos = X;
-    t_rect.x = int(X_pos);
+    t_rect.x = int(X_pos - Origin_x);
 }
 
 void CSprite::SetY(const double Y) {
     Y_pos = Y;
-    t_rect.y = int(Y_pos);
+    t_rect.y = int(Y_pos - Origin_y);
 }
 
 void CSprite::SetPosition(const double X, const double Y) {
     Y_pos = Y;
     X_pos = X;
-    t_rect.x = int(X_pos);
-    t_rect.y = int(Y_pos);
+    t_rect.x = int(X_pos - Origin_x);
+    t_rect.y = int(Y_pos - Origin_y);
 }
 
 double CSprite::GetX() const {
@@ -47,6 +50,21 @@ double CSprite::GetX() const {
 
 double CSprite::GetY() const {
     return Y_pos;
+}
+
+int CSprite::GetWidth() const {
+
+}
+
+int CSprite::GetHeight() const {
+    
+}
+
+void CSprite::SetOrigin(const double x,const double y) {
+    Origin_x = x;
+    Origin_y = y;
+
+    SetPosition(GetX(),GetY());
 }
 
 CSprite::~CSprite() {

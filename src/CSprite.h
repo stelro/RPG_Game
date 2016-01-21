@@ -17,6 +17,9 @@ public:
     void SetPosition(const double X, const double Y);
     double GetX() const;
     double GetY() const;
+    int GetWidth() const;
+    int GetHeight() const;
+    void SetOrigin(const double x, const double y);
     void Draw();
 private:
     SDL_Texture *texture;
@@ -25,6 +28,9 @@ private:
 
     double X_pos;
     double Y_pos;
+
+    double Origin_x;
+    double Origin_y;
 };
 
 #endif
