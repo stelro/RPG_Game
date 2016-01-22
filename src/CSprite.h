@@ -24,13 +24,19 @@ public:
     void SetOrigin(const double x, const double y);
     void Draw();
     void PlayAnimation(int BeginFrame,int EndFrame, int Row, int Speed);
+    void SetUpAnimation(const int x, const int y);
 private:
     SDL_Texture *texture;
     SDL_Rect t_rect;
     SDL_Rect crop;
     int texture_width;
     int texture_height;
+    int CurrentFrame;
+    int animation_delay;
     SDL_Renderer *renderer;
+
+    int Amount_Frame_X;
+    int Amount_Frame_Y;
 
     double X_pos;
     double Y_pos;

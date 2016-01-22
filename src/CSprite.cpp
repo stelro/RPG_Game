@@ -28,14 +28,30 @@ CSprite::CSprite(SDL_Renderer *passed_renderer, const std::string FilePath, cons
     Origin_x = 0;
     Origin_y = 0;
 
+    CurrentFrame = 0;
+
+    Amount_Frame_X = 0;
+    Amount_Frame_Y = 0;
+
 }
 
 void CSprite::PlayAnimation(int BeginFrame,int EndFrame, int Row, int Speed) {
 
-    crop.x = texture_width / 4;
-    crop.y = Row * (texture_height / 4);
-    crop.w = texture_width / 4;
-    crop.h = texture_height / 4;
+    if (animation_delay+Speed  < SDL_GetTicks()) {
+
+        if (EndFrame <= CurrentFrame) {
+            CurrentFrame = BeginFrame;
+        }
+        else
+            CurrentFrame++;
+
+        crop.x = CurrentFrame * (texture_width / Amount_Frame_X);
+        crop.y = Row * (texture_height / Amount_Frame_Y);
+        crop.w = texture_width / Amount_Frame_X;
+        crop.h = texture_height / Amount_Frame_Y;
+
+        animation_delay = SDL_GetTicks();
+    }
 }
 
 void CSprite::Draw() {
@@ -88,6 +104,11 @@ void CSprite::SetOrigin(const double x,const double y) {
     Origin_y = y;
 
     SetPosition(GetX(),GetY());
+}
+
+void CSprite::SetUpAnimation(const int x, const int y) {
+    Amount_Frame_X = x;
+    Amount_Frame_Y = y;
 }
 
 CSprite::~CSprite() {
