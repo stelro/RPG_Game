@@ -17,19 +17,12 @@ public:
 private:
     bool quit_state;
     SDL* csdl_setup;
-
     //-------------------------
     //Creating objects on the screen
     //-------------------------
-
     CSprite *background_img;
-    CSprite *main_char;
     int MouseX;
     int MouseY;
-    bool follow;
-    int follow_point_x;
-    int follow_point_y;
-    size_t timeCheck;
 
     const double PI;
 };
