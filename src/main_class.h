@@ -30,6 +30,8 @@ private:
     int follow_point_x;
     int follow_point_y;
     size_t timeCheck;
+
+    const double PI;
 };
 
 #endif

@@ -6,7 +6,7 @@
 //1024 x 768
 //--------------------------------------------
 
-MainClass::MainClass() {
+MainClass::MainClass() : PI(3.14159265359) {
 
     quit_state = false;
 
@@ -20,7 +20,7 @@ MainClass::MainClass() {
         background_img = new CSprite(csdl_setup->GetRenderer(), "images/grass.bmp",0,0,1024,768);
 }
 
-MainClass::MainClass(const bool flag, const char *title, const int pos_x, const int pos_y, const int w, const int h) {
+MainClass::MainClass(const bool flag, const char *title, const int pos_x, const int pos_y, const int w, const int h) : PI(3.14159265359) {
 
     quit_state = flag;
 
@@ -67,7 +67,34 @@ void MainClass::GameLoop() {
         background_img->Draw();
         main_char->Draw();
 
-        main_char->PlayAnimation(0,2,0,340);
+        //--------------------------
+        //we get angle in radiance so
+        // convert it to
+        //degrees
+        //---------------------------
+        double angle = atan2(follow_point_y - main_char->GetY(), follow_point_x - main_char->GetX());
+        angle = angle * (180/PI) + 180;
+
+        std::cout << angle << std::endl;
+
+        if (angle > 45 &&  angle <= 135) {
+            //up
+            main_char->PlayAnimation(0,2,3,340);
+        }
+        else if (angle > 135 && angle <= 225) {
+            //right
+            main_char->PlayAnimation(0,2,2,340);
+        }
+        else if (angle > 225 && angle <= 315) {
+            //down
+            main_char->PlayAnimation(0,2,0,340);
+        }
+        else if ((angle <= 360 && angle > 315) || (angle >= 0 && angle <= 45)) {
+            //left
+            main_char->PlayAnimation(0,2,1,340);
+        }
+
+
 
         if (csdl_setup->GetMainEvent()->type == SDL_MOUSEBUTTONDOWN ||
         csdl_setup->GetMainEvent()->type == SDL_MOUSEMOTION) {
