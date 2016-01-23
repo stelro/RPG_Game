@@ -6,21 +6,25 @@
 //1024 x 768
 //--------------------------------------------
 
-MainClass::MainClass() : PI(3.14159265359) {
+MainClass::MainClass() {
 
-    quit_state = false;
+    // quit_state = false;
+    //
+    // try {
+    //     csdl_setup = new SDL(SDL_INIT_VIDEO | SDL_INIT_TIMER, &quit_state,"title",0,0,1024,768);
+    // }catch(InitError &e) {
+    //     std::cerr << "Could not initialize SDL: " << e.what();
+    //     quit_state = true;
+    // }
+    //
+    // background_img = new CSprite(csdl_setup->GetRenderer(), "images/grass.bmp",0,0,1024,768);
+    //
+    // main_char = new MainCharacter(csdl_setup, &MouseX, &MouseY);
 
-    try {
-        csdl_setup = new SDL(SDL_INIT_VIDEO | SDL_INIT_TIMER, &quit_state,"title",0,0,1024,768);
-    }catch(InitError &e) {
-        std::cerr << "Could not initialize SDL: " << e.what();
-        quit_state = true;
-    }
-
-        background_img = new CSprite(csdl_setup->GetRenderer(), "images/grass.bmp",0,0,1024,768);
+    //TODO: to fix default constructor
 }
 
-MainClass::MainClass(const bool flag, const char *title, const int pos_x, const int pos_y, const int w, const int h) : PI(3.14159265359) {
+MainClass::MainClass(const bool flag, const char *title, const int pos_x, const int pos_y, const int w, const int h)  {
 
     quit_state = flag;
 
@@ -36,6 +40,8 @@ MainClass::MainClass(const bool flag, const char *title, const int pos_x, const 
      MouseX = 0;
      MouseY = 0;
 
+     main_char = new MainCharacter(csdl_setup, &MouseX, &MouseY);
+
 }
 
 
@@ -46,12 +52,15 @@ void MainClass::GameLoop() {
         csdl_setup->SdlBegin();
         SDL_GetMouseState(&MouseX,&MouseY);
         background_img->Draw();
+        main_char->Draw();
+        main_char->Update();
         csdl_setup->SdlEnd();
     }
 }
 
 MainClass::~MainClass() {
 
+    delete main_char;
     delete background_img;
     delete csdl_setup;
 

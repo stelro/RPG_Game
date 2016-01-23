@@ -13,8 +13,8 @@ public:
     void Draw();
     double GetDistance(const int x1, const int y1, const int x2, const int y2);
 private:
-    int MouseX;
-    int MouseY;
+    int *MouseX;
+    int *MouseY;
 
     SDL* csdl_setup;
 

@@ -3,8 +3,8 @@
 MainCharacter::MainCharacter(SDL *passed_sdl_setup, int *passed_MouseX, int *passed_MouseY) : PI(3.14159265359) {
 
     csdl_setup = passed_sdl_setup;
-    MouseX = *passed_MouseX;
-    MouseY = *passed_MouseY;
+    MouseX = passed_MouseX;
+    MouseY = passed_MouseY;
 
     main_char = new CSprite(csdl_setup->GetRenderer(), "images/ryuk.png", 100, 200, 50, 80);
 
@@ -89,8 +89,8 @@ void MainCharacter::Update() {
     csdl_setup->GetMainEvent()->type == SDL_MOUSEMOTION) {
 
         if(csdl_setup->GetMainEvent()->button.button == SDL_BUTTON_LEFT) {
-            follow_point_x = MouseX;
-            follow_point_y = MouseY;
+            follow_point_x = *MouseX;
+            follow_point_y = *MouseY;
             follow = true;
         }
 

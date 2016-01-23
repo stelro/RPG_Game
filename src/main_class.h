@@ -3,6 +3,7 @@
 
 #include "_sdl.h"
 #include "CSprite.h"
+#include "MainCharacter.h"
 #include <cmath>
 
 //TODO: copy constructor
@@ -13,8 +14,8 @@ public:
     MainClass(const bool flag, const char *title, const int pos_x, const int pos_y, const int w, const int h);
     ~MainClass();
     void GameLoop();
-    double GetDistance(const int x1, const int y1, const int x2, const int y2);
 private:
+    MainCharacter *main_char;
     bool quit_state;
     SDL* csdl_setup;
     //-------------------------
@@ -23,8 +24,6 @@ private:
     CSprite *background_img;
     int MouseX;
     int MouseY;
-
-    const double PI;
 };
 
 #endif
