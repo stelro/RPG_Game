@@ -27,6 +27,7 @@ public:
     void PlayAnimation(int BeginFrame,int EndFrame, int Row, int Speed);
     void SetUpAnimation(const int x, const int y);
 private:
+    
     float *CameraX;
     float *CameraY;
 

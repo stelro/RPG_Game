@@ -2,8 +2,6 @@
 
 CSprite::CSprite(SDL_Renderer *passed_renderer, const std::string FilePath, const int x, const int y, const int w, const int h, float *passed_CameraX, float *passed_CameraY) {
 
-
-
     renderer = passed_renderer;
     texture = nullptr;
     texture = IMG_LoadTexture(renderer, FilePath.c_str());
@@ -12,6 +10,7 @@ CSprite::CSprite(SDL_Renderer *passed_renderer, const std::string FilePath, cons
         std::cerr << "Couldn't load image" << std::endl;
     }
 
+    // texture rectangle
     t_rect.x = x;
     t_rect.y = y;
     t_rect.w = w;

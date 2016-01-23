@@ -11,6 +11,7 @@ class SDL {
 public:
     SDL();
     SDL(Uint32 flags, bool *quit_state,const char *title, const uint32_t pos_x, const uint32_t pos_y, const uint32_t w, const uint32_t h) throw(InitError);
+    SDL(const SDL &copy_sdl);
     virtual ~SDL();
     SDL_Renderer *GetRenderer() const;
     SDL_Event *GetMainEvent() const;
