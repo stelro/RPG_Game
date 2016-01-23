@@ -4,6 +4,7 @@
 #include "_sdl.h"
 #include "CSprite.h"
 #include "MainCharacter.h"
+#include "CEnvironment.h"
 #include <cmath>
 
 //TODO: copy constructor
@@ -18,13 +19,14 @@ private:
     float CameraX;
     float CameraY;
 
+    Environment* Stage1_Area;
     MainCharacter *main_char;
     bool quit_state;
     SDL* csdl_setup;
     //-------------------------
     //Creating objects on the screen
     //-------------------------
-    CSprite *background_img[4][7];
+
     int MouseX;
     int MouseY;
 };
