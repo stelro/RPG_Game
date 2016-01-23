@@ -1,6 +1,9 @@
 #include "CSprite.h"
 
-CSprite::CSprite(SDL_Renderer *passed_renderer, const std::string FilePath, const int x, const int y, const int w, const int h) {
+CSprite::CSprite(SDL_Renderer *passed_renderer, const std::string FilePath, const int x, const int y, const int w, const int h, float *passed_CameraX, float *passed_CameraY) {
+
+    CameraX = passed_CameraX;
+    CameraY = passed_CameraY;
 
     renderer = passed_renderer;
     texture = nullptr;

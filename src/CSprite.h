@@ -10,7 +10,7 @@
 
 class CSprite {
 public:
-    CSprite(SDL_Renderer *passed_renderer, const std::string FilePath, const int x, const int y, const int w, const int h);
+    CSprite(SDL_Renderer *passed_renderer, const std::string FilePath, const int x, const int y, const int w, const int h, float *passed_CameraX, float *passed_CameraY);
     ~CSprite();
     void SetX(const double X);
     void SetY(const double Y);
@@ -26,6 +26,9 @@ public:
     void PlayAnimation(int BeginFrame,int EndFrame, int Row, int Speed);
     void SetUpAnimation(const int x, const int y);
 private:
+    float *CameraX;
+    float *CameraY;
+
     SDL_Texture *texture;
     SDL_Rect t_rect;
     SDL_Rect crop;

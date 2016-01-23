@@ -15,6 +15,9 @@ public:
     ~MainClass();
     void GameLoop();
 private:
+    float CameraX;
+    float CameraY;
+
     MainCharacter *main_char;
     bool quit_state;
     SDL* csdl_setup;

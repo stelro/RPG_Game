@@ -7,7 +7,7 @@
 
 class MainCharacter {
 public:
-    MainCharacter(SDL *passed_sdl_setup, int *passed_MouseX, int *passed_MouseY);
+    MainCharacter(SDL *passed_sdl_setup, int *passed_MouseX, int *passed_MouseY, float *passed_CameraX, float *passed_CameraY);
     ~MainCharacter();
     void Update();
     void Draw();
@@ -15,6 +15,8 @@ public:
 private:
     int *MouseX;
     int *MouseY;
+    float *CameraX;
+    float *CameraY;
 
     SDL* csdl_setup;
 

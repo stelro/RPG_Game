@@ -28,6 +28,9 @@ MainClass::MainClass(const bool flag, const char *title, const int pos_x, const 
 
     quit_state = flag;
 
+    CameraX = 0;
+    CameraY = 0;
+
     try {
         csdl_setup = new SDL(SDL_INIT_VIDEO | SDL_INIT_TIMER, &quit_state,title,pos_x,pos_y,w,h);
     }catch(InitError &e) {
@@ -35,12 +38,12 @@ MainClass::MainClass(const bool flag, const char *title, const int pos_x, const 
         quit_state = true;
     }
 
-    background_img = new CSprite(csdl_setup->GetRenderer(), "images/grass.bmp",0,0,1024,768);
+    background_img = new CSprite(csdl_setup->GetRenderer(), "images/grass.bmp",0,0,1024,768, &CameraX, &CameraY);
 
      MouseX = 0;
      MouseY = 0;
 
-     main_char = new MainCharacter(csdl_setup, &MouseX, &MouseY);
+     main_char = new MainCharacter(csdl_setup, &MouseX, &MouseY, &CameraX, &CameraY);
 
 }
 

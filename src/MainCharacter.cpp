@@ -1,12 +1,15 @@
 #include "MainCharacter.h"
 
-MainCharacter::MainCharacter(SDL *passed_sdl_setup, int *passed_MouseX, int *passed_MouseY) : PI(3.14159265359) {
+MainCharacter::MainCharacter(SDL *passed_sdl_setup, int *passed_MouseX, int *passed_MouseY, float *passed_CameraX, float *passed_CameraY) : PI(3.14159265359) {
+
+    CameraX = passed_CameraX;
+    CameraY = passed_CameraY;
 
     csdl_setup = passed_sdl_setup;
     MouseX = passed_MouseX;
     MouseY = passed_MouseY;
 
-    main_char = new CSprite(csdl_setup->GetRenderer(), "images/ryuk.png", 100, 200, 50, 80);
+    main_char = new CSprite(csdl_setup->GetRenderer(), "images/ryuk.png", 100, 200, 50, 80, CameraX, CameraY);
 
     //----------------------------------
     //Set origin , set the half width and height
