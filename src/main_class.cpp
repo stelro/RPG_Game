@@ -54,9 +54,11 @@ void MainClass::GameLoop() {
 
         csdl_setup->SdlBegin();
         SDL_GetMouseState(&MouseX,&MouseY);
+        Stage1_Area->Update();
         Stage1_Area->DrawBack();
         main_char->Draw();
         main_char->Update();
+        Stage1_Area->DrawFront();
         csdl_setup->SdlEnd();
     }
 }
