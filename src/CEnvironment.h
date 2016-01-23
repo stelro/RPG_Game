@@ -4,6 +4,8 @@
 #include <SDL.h>
 #include <vector>
 #include <fstream>
+#include <string>
+#include <sstream>
 #include "Trees.h"
 
 class Environment {
@@ -14,6 +16,7 @@ public:
     void DrawFront();
     void Update();
     void SaveToFile();
+    void LoadFromFile();
     enum Modetype {
         Gameplay,
         LevelCreation
