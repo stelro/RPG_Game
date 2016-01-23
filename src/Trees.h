@@ -10,7 +10,11 @@ public:
     ~Trees();
     void DrawCrown();
     void DrawTrunk();
+    int GetX() const;
+    int GetY() const;
 private:
+    int x;
+    int y;
     CSprite *Crown;
     CSprite *Trunk;
 };

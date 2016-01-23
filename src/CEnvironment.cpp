@@ -13,7 +13,7 @@ Environment::Environment(const int screenWidth,const int screenHeight, float *pa
         }
     }
 
-    Mode = GamePlay;
+    Mode = Gameplay;
 
     one_press = false;
 
@@ -33,9 +33,41 @@ Environment::~Environment() {
     trees.clear();
 }
 
+void Environment::SaveToFile() {
+    std::ofstream LoadedFile;
+    LoadedFile.open("StageLayout.txt");
+
+    LoadedFile << "---====BEGIN_TREE====---" << std::endl;
+
+    for (auto &i : trees) {
+        LoadedFile << "x: " << i->GetX() << "\ty: " << i->GetY() << std::endl;
+    }
+
+    LoadedFile << "---====END_TREE====---" << std::endl;
+
+    LoadedFile.close();
+
+    std::cout << "Level Saved! " << std::endl;
+}
+
 void Environment::Update() {
 
     if (Mode == LevelCreation) {
+
+        if (csdl_setup->GetMainEvent()->type == SDL_KEYDOWN) {
+            if (!one_press && csdl_setup->GetMainEvent()->key.keysym.sym == SDLK_2) {
+
+                SaveToFile();
+                one_press = true;
+            }
+        }
+
+        if (csdl_setup->GetMainEvent()->type == SDL_KEYUP) {
+            if ( one_press && csdl_setup->GetMainEvent()->key.keysym.sym == SDLK_2) {
+                one_press = false;
+            }
+        }
+
         if (csdl_setup->GetMainEvent()->type == SDL_KEYDOWN) {
             if (!one_press && csdl_setup->GetMainEvent()->key.keysym.sym == SDLK_e) {
                 /* character offset, 300 and 250 */
@@ -49,8 +81,28 @@ void Environment::Update() {
                 one_press = false;
             }
         }
-
     }
+
+    if (csdl_setup->GetMainEvent()->type == SDL_KEYDOWN) {
+        if (!one_press && csdl_setup->GetMainEvent()->key.keysym.sym == SDLK_1) {
+            if ( Mode == LevelCreation) {
+                Mode = Gameplay;
+            }
+            else {
+                std::cout << "Level Creation mode" << std::endl;
+                Mode = LevelCreation;
+            }
+
+            one_press = true;
+        }
+    }
+
+    if (csdl_setup->GetMainEvent()->type == SDL_KEYUP) {
+        if ( one_press && csdl_setup->GetMainEvent()->key.keysym.sym == SDLK_1) {
+            one_press = false;
+        }
+    }
+
 }
 
 void Environment::DrawFront() {

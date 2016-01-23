@@ -2,8 +2,9 @@
 #define GUARD_ENVIRONMENT_H
 
 #include <SDL.h>
-#include "Trees.h"
 #include <vector>
+#include <fstream>
+#include "Trees.h"
 
 class Environment {
 public:
@@ -12,12 +13,11 @@ public:
     void DrawBack();
     void DrawFront();
     void Update();
-
+    void SaveToFile();
     enum Modetype {
-        GamePlay,
+        Gameplay,
         LevelCreation
     };
-
 private:
     int Mode;
     bool one_press;
