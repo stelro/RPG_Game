@@ -13,6 +13,9 @@ public:
     void Draw();
     double GetDistance(const int x1, const int y1, const int x2, const int y2);
 private:
+    void UpdateAnimation();
+    void UpdateControllers();
+    
     int *MouseX;
     int *MouseY;
     float *CameraX;

@@ -2,8 +2,7 @@
 
 CSprite::CSprite(SDL_Renderer *passed_renderer, const std::string FilePath, const int x, const int y, const int w, const int h, float *passed_CameraX, float *passed_CameraY) {
 
-    CameraX = passed_CameraX;
-    CameraY = passed_CameraY;
+
 
     renderer = passed_renderer;
     texture = nullptr;
@@ -36,6 +35,14 @@ CSprite::CSprite(SDL_Renderer *passed_renderer, const std::string FilePath, cons
     Amount_Frame_X = 0;
     Amount_Frame_Y = 0;
 
+    CameraX = passed_CameraX;
+    CameraY = passed_CameraY;
+
+    Camera.x = t_rect.x + *CameraX;
+    Camera.y = t_rect.y + *CameraY;
+    Camera.w = t_rect.w;
+    Camera.h = t_rect.h;
+
 }
 
 void CSprite::PlayAnimation(int BeginFrame,int EndFrame, int Row, int Speed) {
@@ -58,7 +65,20 @@ void CSprite::PlayAnimation(int BeginFrame,int EndFrame, int Row, int Speed) {
 }
 
 void CSprite::Draw() {
+
+    Camera.x = t_rect.x + *CameraX;
+    Camera.y = t_rect.y + *CameraY;
+
+    SDL_RenderCopy(renderer,texture,&crop,&Camera);
+}
+
+void CSprite::DrawSteady() {
+
+    /* with this function , character wont be affected of
+    camera */
+
     SDL_RenderCopy(renderer,texture,&crop,&t_rect);
+
 }
 
 void CSprite::SetX(const double X) {

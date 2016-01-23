@@ -38,7 +38,11 @@ MainClass::MainClass(const bool flag, const char *title, const int pos_x, const 
         quit_state = true;
     }
 
-    background_img = new CSprite(csdl_setup->GetRenderer(), "images/grass.bmp",0,0,1024,768, &CameraX, &CameraY);
+    for(int i = 0; i < 4; i++) {
+        for(int j = 0; j < 7; j++) {
+            background_img[i][j] = new CSprite(csdl_setup->GetRenderer(), "images/grass.bmp",1024 * i,768 * j,1024,768, &CameraX, &CameraY);
+        }
+    }
 
      MouseX = 0;
      MouseY = 0;
@@ -54,7 +58,11 @@ void MainClass::GameLoop() {
 
         csdl_setup->SdlBegin();
         SDL_GetMouseState(&MouseX,&MouseY);
-        background_img->Draw();
+        for(int i = 0; i < 4; i++) {
+            for(int j = 0; j < 7; j++) {
+                background_img[i][j]->Draw();
+            }
+        }
         main_char->Draw();
         main_char->Update();
         csdl_setup->SdlEnd();
@@ -64,7 +72,11 @@ void MainClass::GameLoop() {
 MainClass::~MainClass() {
 
     delete main_char;
-    delete background_img;
+    for(int i = 0; i < 4; i++) {
+        for(int j = 0; j < 7; j++) {
+            delete background_img[i][j];
+        }
+    }
     delete csdl_setup;
 
 }

@@ -24,7 +24,7 @@ private:
     //-------------------------
     //Creating objects on the screen
     //-------------------------
-    CSprite *background_img;
+    CSprite *background_img[4][7];
     int MouseX;
     int MouseY;
 };
