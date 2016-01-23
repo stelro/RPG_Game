@@ -27,6 +27,8 @@ private:
 
     double distance;
     bool stopAnimation;
+
+    const double PI;
 };
 
 #endif

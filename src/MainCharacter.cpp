@@ -1,10 +1,24 @@
 #include "MainCharacter.h"
 
-MainCharacter::MainCharacter(csdl_setup *passed_sdl_setup, int *passed_MouseX, int *passed_MouseY) {
+MainCharacter::MainCharacter(SDL *passed_sdl_setup, int *passed_MouseX, int *passed_MouseY) : PI(3.14159265359) {
 
     csdl_setup = passed_sdl_setup;
     MouseX = *passed_MouseX;
     MouseY = *passed_MouseY;
+
+    main_char = new CSprite(csdl_setup->GetRenderer(), "images/ryuk.png", 100, 200, 50, 80);
+
+    //----------------------------------
+    //Set origin , set the half width and height
+    //of the main character
+    //----------------------------------
+    main_char->SetUpAnimation(4,4);
+    main_char->SetOrigin(main_char->GetWidth() / 2.0f, main_char->GetHeight() / 2.0f);
+
+    timeCheck = SDL_GetTicks();
+    follow = false;
+    distance = 0;
+    stopAnimation = false;
 
 }
 
