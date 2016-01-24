@@ -9,7 +9,7 @@ Environment::Environment(const int screenWidth,const int screenHeight, float *pa
 
     for(int i = 0; i < 4; i++) {
         for(int j = 0; j < 7; j++) {
-            background_img[i][j] = new CSprite(csdl_setup->GetRenderer(), "images/grass.bmp",screenWidth * i,screenHeight * j,screenWidth,screenHeight, CameraX, CameraY);
+            background_img[i][j] = new CSprite(csdl_setup->GetRenderer(), "images/grass.bmp",screenWidth * i,screenHeight * j,screenWidth,screenHeight, CameraX, CameraY, CollisionRect());
         }
     }
 

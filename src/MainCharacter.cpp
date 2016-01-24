@@ -9,7 +9,7 @@ MainCharacter::MainCharacter(SDL *passed_sdl_setup, int *passed_MouseX, int *pas
     MouseX = passed_MouseX;
     MouseY = passed_MouseY;
 
-    main_char = new CSprite(csdl_setup->GetRenderer(), "images/leviathan.png", 300, 250, 70, 100, CameraX, CameraY);
+    main_char = new CSprite(csdl_setup->GetRenderer(), "images/leviathan.png", 300, 250, 70, 100, CameraX, CameraY,CollisionRect(300,130,70,100));
 
     //----------------------------------
     //Set origin , set the half width and height

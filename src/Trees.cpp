@@ -5,9 +5,9 @@ Trees::Trees(int passed_x, int passed_y,float *CameraX, float *CameraY,SDL *csdl
     x = passed_x;
     y = passed_y;
 
-    Trunk = new CSprite(csdl_setup->GetRenderer(), "images/Trunk.png",x, y,43,145, CameraX, CameraY);
+    Trunk = new CSprite(csdl_setup->GetRenderer(), "images/Trunk.png",x, y,43,145, CameraX, CameraY,CollisionRect(-50,30,24,145));
 
-    Crown = new CSprite(csdl_setup->GetRenderer(),"images/Crown.png", x-75, y-115,183,165, CameraX, CameraY);
+    Crown = new CSprite(csdl_setup->GetRenderer(),"images/Crown.png", x-75, y-115,183,165, CameraX, CameraY, CollisionRect());
 }
 
 Trees::~Trees() {

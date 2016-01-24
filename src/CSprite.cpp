@@ -1,12 +1,20 @@
 #include "CSprite.h"
 
-CSprite::CSprite(SDL_Renderer *passed_renderer, const std::string FilePath, const int x, const int y, const int w, const int h, float *passed_CameraX, float *passed_CameraY) {
+CSprite::CSprite(SDL_Renderer *passed_renderer, const std::string FilePath, const int x, const int y, const int w, const int h, float *passed_CameraX, float *passed_CameraY,CollisionRect passed_CollisonRect) {
 
+    Collision_Rect =  passed_CollisonRect;
     renderer = passed_renderer;
     texture = nullptr;
     texture = IMG_LoadTexture(renderer, FilePath.c_str());
 
     if (texture == nullptr) {
+        std::cerr << "Couldn't load image" << std::endl;
+    }
+
+    CollisionImage = nullptr;
+    CollisionImage = IMG_LoadTexture(renderer, "images/collision.png");
+
+    if (CollisionImage == nullptr) {
         std::cerr << "Couldn't load image" << std::endl;
     }
 
@@ -68,7 +76,11 @@ void CSprite::Draw() {
     Camera.x = t_rect.x + *CameraX;
     Camera.y = t_rect.y + *CameraY;
 
+    Collision_Rect.SetX(t_rect.x + *CameraX);
+    Collision_Rect.SetY(t_rect.y + *CameraY);
+
     SDL_RenderCopy(renderer,texture,&crop,&Camera);
+    SDL_RenderCopy(renderer,CollisionImage,nullptr,&Collision_Rect.GetRectangle());
 }
 
 void CSprite::DrawSteady() {
@@ -76,6 +88,7 @@ void CSprite::DrawSteady() {
     /* with this function , character wont be affected of
     camera */
 
+    SDL_RenderCopy(renderer,CollisionImage,nullptr,&Collision_Rect.GetRectangle());
     SDL_RenderCopy(renderer,texture,&crop,&t_rect);
 
 }
@@ -131,6 +144,11 @@ void CSprite::SetOrigin(const double x,const double y) {
 void CSprite::SetUpAnimation(const int x, const int y) {
     Amount_Frame_X = x;
     Amount_Frame_Y = y;
+}
+
+bool CSprite::isColliding(CollisionRect theCollider)
+{
+    return !(Collision_Rect.GetRectangle().x + Collision_Rect.GetRectangle().w < theCollider.GetRectangle().x || Collision_Rect.GetRectangle().y + Collision_Rect.GetRectangle().h < theCollider.GetRectangle().y || Collision_Rect.GetRectangle().x > theCollider.GetRectangle().x + theCollider.GetRectangle().w || Collision_Rect.GetRectangle().y > theCollider.GetRectangle().y + theCollider.GetRectangle().h);
 }
 
 CSprite::~CSprite() {
