@@ -43,7 +43,7 @@ MainClass::MainClass(const bool flag, const char *title, const int pos_x, const 
      MouseX = 0;
      MouseY = 0;
 
-     main_char = new MainCharacter(csdl_setup, &MouseX, &MouseY, &CameraX, &CameraY);
+     main_char = new MainCharacter(csdl_setup, &MouseX, &MouseY, &CameraX, &CameraY, Stage1_Area);
 
 }
 

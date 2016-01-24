@@ -1,7 +1,8 @@
 #include "MainCharacter.h"
 
-MainCharacter::MainCharacter(SDL *passed_sdl_setup, int *passed_MouseX, int *passed_MouseY, float *passed_CameraX, float *passed_CameraY) : PI(3.14159265359) {
+MainCharacter::MainCharacter(SDL *passed_sdl_setup, int *passed_MouseX, int *passed_MouseY, float *passed_CameraX, float *passed_CameraY, Environment *passed_environment) : PI(3.14159265359) {
 
+    environment = passed_environment;
     CameraX = passed_CameraX;
     CameraY = passed_CameraY;
 
@@ -9,7 +10,7 @@ MainCharacter::MainCharacter(SDL *passed_sdl_setup, int *passed_MouseX, int *pas
     MouseX = passed_MouseX;
     MouseY = passed_MouseY;
 
-    main_char = new CSprite(csdl_setup->GetRenderer(), "images/leviathan.png", 300, 250, 70, 100, CameraX, CameraY,CollisionRect(300,130,70,100));
+    main_char = new CSprite(csdl_setup->GetRenderer(), "images/death_scythe_ani.png", 300, 250, 50, 80, CameraX, CameraY,CollisionRect(280,260,35,30));
 
     //----------------------------------
     //Set origin , set the half width and height
@@ -112,13 +113,47 @@ void MainCharacter::UpdateControllers() {
 
         if (distance > 15 ) {
 
-            if (*CameraX != follow_point_x) {
-                *CameraX = (*CameraX - ((*CameraX - follow_point_x) / distance ) * 1.5f );
+            bool colliding = false;
+
+            for (int i = 0; i < environment->GetTrees().size(); i++) {
+
+                if (main_char->isColliding(environment->GetTrees()[i]->GetTrunk()->GetCollisionRect())) {
+                    if (*CameraX > follow_point_x) {
+                        *CameraX = *CameraX + 5;
+                    }
+
+                    if (*CameraX < follow_point_x) {
+                        *CameraX = *CameraX - 5;
+                    }
+
+                    if (*CameraY > follow_point_y) {
+                        *CameraY = *CameraY + 5;
+                    }
+
+                    if (*CameraY > follow_point_y) {
+                        *CameraY = *CameraY + 5;
+                    }
+
+                    follow_point_x = *CameraX;
+                    follow_point_y = *CameraY;
+                    distance = 0;
+                    follow = false;
+                    colliding = true;
+                }
             }
-            if (*CameraY != follow_point_y) {
-                *CameraY = (*CameraY - ((*CameraY - follow_point_y) / distance ) * 1.5f);
+            /* if the player colliding with any object, dont follow the follow_point */
+
+            if (!colliding) {
+
+                if (*CameraX != follow_point_x) {
+                    *CameraX = (*CameraX - ((*CameraX - follow_point_x) / distance ) * 1.5f );
+                }
+                if (*CameraY != follow_point_y) {
+                    *CameraY = (*CameraY - ((*CameraY - follow_point_y) / distance ) * 1.5f);
+                }
             }
         }
+
         else
             follow = false;
 

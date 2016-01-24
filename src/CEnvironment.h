@@ -17,10 +17,13 @@ public:
     void Update();
     void SaveToFile();
     void LoadFromFile();
+    
     enum Modetype {
         Gameplay,
         LevelCreation
     };
+
+    std::vector<Trees*> GetTrees();
 private:
     int Mode;
     bool one_press;

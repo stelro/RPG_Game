@@ -149,8 +149,19 @@ void CSprite::SetUpAnimation(const int x, const int y) {
 bool CSprite::isColliding(CollisionRect theCollider)
 {
     return !(Collision_Rect.GetRectangle().x + Collision_Rect.GetRectangle().w < theCollider.GetRectangle().x || Collision_Rect.GetRectangle().y + Collision_Rect.GetRectangle().h < theCollider.GetRectangle().y || Collision_Rect.GetRectangle().x > theCollider.GetRectangle().x + theCollider.GetRectangle().w || Collision_Rect.GetRectangle().y > theCollider.GetRectangle().y + theCollider.GetRectangle().h);
+
 }
 
 CSprite::~CSprite() {
     SDL_DestroyTexture(texture);
+}
+
+CollisionRect CSprite::GetCollisionRect()
+{
+    return Collision_Rect;
+}
+
+SDL_Rect CSprite::GetPositionRect()
+{
+    return t_rect;
 }

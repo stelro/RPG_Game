@@ -139,15 +139,7 @@ void Environment::Update() {
             if (!one_press && csdl_setup->GetMainEvent()->key.keysym.sym == SDLK_3) {
 
                 if(trees.size() > 0) {
-
-                    int count = 0;
-                    for ( auto &i : trees) {
-
-                        if(count == trees.size())
-                            delete i;
-                        count++;
-                    }
-
+                    delete trees[trees.size()-1];
                     trees.pop_back();
                 }
                 one_press = true;
@@ -201,4 +193,9 @@ void Environment::DrawBack() {
     for (auto &i : trees) {
         i->DrawTrunk();
     }
+}
+
+std::vector<Trees*> Environment::GetTrees()
+{
+    return trees;
 }

@@ -28,6 +28,8 @@ public:
     void PlayAnimation(int BeginFrame,int EndFrame, int Row, int Speed);
     void SetUpAnimation(const int x, const int y);
     bool isColliding(CollisionRect theCollider);
+    CollisionRect GetCollisionRect();
+    SDL_Rect GetPositionRect();
 private:
 
     float *CameraX;

@@ -4,18 +4,20 @@
 #include "CSprite.h"
 #include <cmath>
 #include "_sdl.h"
+#include "CEnvironment.h"
 
 class MainCharacter {
 public:
-    MainCharacter(SDL *passed_sdl_setup, int *passed_MouseX, int *passed_MouseY, float *passed_CameraX, float *passed_CameraY);
+    MainCharacter(SDL *passed_sdl_setup, int *passed_MouseX, int *passed_MouseY, float *passed_CameraX, float *passed_CameraY, Environment *passed_environment);
     ~MainCharacter();
     void Update();
     void Draw();
     double GetDistance(const int x1, const int y1, const int x2, const int y2);
 private:
+    Environment *environment;
     void UpdateAnimation();
     void UpdateControllers();
-    
+
     int *MouseX;
     int *MouseY;
     float *CameraX;
